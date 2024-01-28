@@ -12,7 +12,13 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
     lib.linkLibC();
-    lib.linkSystemLibrary("asound");
+    //    lib.linkSystemLibrary("asound");
+    lib.installHeadersDirectoryOptions(.{
+        .source_dir = .{ .path = "include" },
+        .install_dir = .header,
+        .install_subdir = ".",
+        .exclude_extensions = &.{"COPYING"},
+    });
 
     _ = b.addModule("zig-alsa", .{
         .source_file = .{ .path = "src/main.zig" },
