@@ -11,6 +11,8 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    lib.linkLibC();
+    lib.linkSystemLibrary("asound");
 
     b.installArtifact(lib);
 
@@ -19,6 +21,8 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    main_tests.linkLibC();
+    main_tests.linkSystemLibrary("asound");
 
     const run_main_tests = b.addRunArtifact(main_tests);
 
