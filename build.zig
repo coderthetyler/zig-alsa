@@ -14,6 +14,11 @@ pub fn build(b: *std.Build) void {
     lib.linkLibC();
     lib.linkSystemLibrary("asound");
 
+    _ = b.addModule("zig-alsa", .{
+        .source_file = .{ .path = "src/main.zig" },
+        .dependencies = &.{},
+    });
+
     b.installArtifact(lib);
 
     const main_tests = b.addTest(.{
